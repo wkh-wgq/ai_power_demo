@@ -1,0 +1,29 @@
+<%= form_with(model: record, scope: :record, url: records_path) do |form| %>
+  <% if record.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(record.errors.count, "error") %> prohibited this record from being saved:</h2>
+
+      <ul>
+        <% record.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3 mt-3">
+    <%= form.label '概述', class: 'form-label' %>
+    <%= form.text_field :label, class: 'form-control' %>
+  </div>
+
+  <%= form.text_field :type, class: 'd-none' %>
+
+  <div class="mb-3 mt-3">
+    <%= form.label '详细描述', class: 'form-label' %>
+    <%= form.text_area :description, id: 'text_description', class: 'form-control', style: 'height: 100px;' %>
+  </div>
+
+  <div class="d-grid gap-2">
+    <%= form.submit '创建', class: 'btn btn-primary' %>
+  </div>
+<% end %>

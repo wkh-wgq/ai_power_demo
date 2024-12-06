@@ -1,0 +1,24 @@
+<% if notice.present? %>
+  <div class="alert alert-success alert-dismissible fade show">
+    <button type="button" class="btn-close", data-bs-dismiss="alert"></button>
+    <%= notice %>
+  </div>
+<% end %>
+
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-9">
+        <h5>详情</h5>
+      </div>
+      <div class="col-3" style="text-align: end">
+        <%= link_to "返回", records_path, class: 'btn btn-primary btn-sm' %>
+      </div>
+    </div>
+  </div>
+
+  <%= turbo_stream_from @record %>
+  <div data-controller="record" class="card-body">
+    <%= render "records/#{@record.type}/detail", record: @record %>
+  </div>
+</div>

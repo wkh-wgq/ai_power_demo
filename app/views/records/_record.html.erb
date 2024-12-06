@@ -1,0 +1,14 @@
+<div class="bg-body-tertiary">
+  <%= link_to record_path(record), class: 'text-decoration-none' do %>
+    <p>
+      <strong>概述:</strong>
+      <%= record.label %>
+    </p>
+  <% end %>
+
+  <p>
+    <strong>详细描述:</strong>
+    <%= record.description %>
+  </p>
+
+</div>

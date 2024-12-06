@@ -1,0 +1,73 @@
+<div class="mb-3 mt-3">
+  <% if record.ai_answer.blank? %>
+    <p>
+      正在生成ai的建议，大概需要10秒钟，请稍后...
+    </p>
+    <div class="spinner-grow text-muted"></div>
+  <% elsif record.ai_answer['success'] %>
+
+    <div class="mb-3 mt-3">
+      <%= label_tag 'ai的建议', nil, class: 'form-label' %>
+
+      <div class="card">
+        <div class="card-body" style="padding: 0; overflow-y: scroll;">
+          <%= tag.p record.ai_answer['content']['answer_text'], class: 'form-control text-info', style: 'height: 200px; border: none;' %>
+        </div>
+        <%# 判断是否有知识库的引用 %>
+        <% if record.ai_answer['content']['paragraph_list'].present? %>
+          <div class="card-footer">
+            <div>
+              <span style="color: #646a73;">知识来源</span>
+              <span> | </span>
+              <span>
+                <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                  引用分段
+                  <%= record.ai_answer['content']['paragraph_list'].size %>
+                </a>
+              </span>
+            </div>
+            <%= button_tag record.ai_answer['content']['paragraph_list'].first['dataset_name'], 
+              "type" => "button", 
+              "class" => "btn btn-sm",
+              "data-bs-toggle" => "modal",
+              "data-bs-target" => "#staticBackdrop",
+              "style" => "background-color: #1f23291a; font-size: 12px; margin-top: 5px;"
+            %>
+          </div>
+
+          <%# 知识库引用的弹出框 %>
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="--bs-modal-margin: 5rem">
+            <div class="modal-dialog">
+              <div class="modal-content" style="height: 600px;">
+                <div class="modal-header">
+                  <h4 class="modal-title fs-5" id="staticBackdropLabel">知识库引用</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="overflow-y: scroll;">
+                  <div class="mb-3">
+                    <%= label_tag '问题描述', nil, class: 'form-label' %>
+                    <%= tag.p record.description, class: 'form-control'%>
+                  </div>
+
+                  <div class="mb-3 mt-3">
+                    <%= label_tag '引用分段', nil, class: 'form-label' %>
+                    <% record.ai_answer['content']['paragraph_list'].reverse.each do |paragraph| %>
+                      <%= render 'records/ai_answer_paragraph', paragraph: paragraph %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  <% else %>
+    <p>
+      <strong>ai建议生成失败，失败原因：</strong>
+      <%= record.ai_answer['error_message'] %>
+    </p>
+  <% end %>
+
+</div>

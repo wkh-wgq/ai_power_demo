@@ -1,0 +1,63 @@
+<%= form_with(model: record, scope: :record, url: records_path) do |form| %>
+  <% if record.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(record.errors.count, "error") %> prohibited this record from being saved:</h2>
+
+      <ul>
+        <% record.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%# 概述 %>
+  <div class="mb-3 mt-3">
+    <%= form.label '概述', class: 'form-label' %>
+    <%= form.text_field :label, class: 'form-control' %>
+  </div>
+
+  <%# 类型，隐藏域 %>
+  <%= form.text_field :type, class: 'd-none' %>
+
+  <%# 音频选择框 %>
+  <div class="mb-3 mt-3">
+    <div>
+      <%= form.label '上传音频' %>
+      <%= form.radio_button :audio_source_type, 'upload', 'data-action' => 'click->record#audioSourceTypeChanged', checked: 'checked' %> &nbsp;
+
+      <%= form.label '录音' %>
+      <%= form.radio_button :audio_source_type, 'record', 'data-action' => 'click->record#audioSourceTypeChanged' %> &nbsp;
+    </div>
+  </div>
+
+  <%# 上传音频 %>
+  <div class="mb-3 mt-3" id="upload_area">
+    <%= form.file_field :file_data, id: 'upload_audio_data', class: 'form-control', accept: 'audio/*' %>
+  </div>
+
+  <%# 录音 %>
+  <div class="mb-3 mt-3 d-none" id="record_area">
+    <%= button_tag '录制', id: 'startBtn', type: 'button', class: 'btn btn-secondary btn-sm', 'data-action' => 'record#recording' %>
+    <%= button_tag '停止', id: 'stopBtn', type: 'button', class: 'btn btn-secondary btn-sm d-none' %>
+    <audio id="audioPlayback" class='form-control' controls></audio>
+
+    <%= form.file_field :file_data, id: 'record_audio_data', class: 'd-none', accept: 'audio/*' %>
+  </div>
+
+  <%# 识别按钮 %>
+  <%= button_tag '识别', type: 'button', class: 'form-control btn btn-success btn-sm', 'data-action' => 'record#speechRecognition', 'data-record-target' => 'recognitionButton' %>
+
+  <%# 详细描述 %>
+  <div class="mb-3 mt-3">
+    <%= form.label '详细描述', class: 'form-label' %>
+    <%= form.text_area :description, class: 'form-control', style: 'height: 100px;', 'data-record-target' => 'description' %>
+  </div>
+
+  <%# 文件访问的id，隐藏域，文件上传到文件服务器之后就会把值塞进来 %>
+  <%= form.text_field :file_id, class: 'd-none', 'data-record-target' => 'fileId' %>
+
+  <div class="d-grid gap-2">
+    <%= form.submit '创建', class: 'btn btn-primary' %>
+  </div>
+<% end %>

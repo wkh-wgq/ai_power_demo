@@ -1,0 +1,22 @@
+<% content_for :title, "New record" %>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-9">
+        <h5>新建记录</h5>
+      </div>
+      <div class="col-3" style="text-align: end">
+        <%= link_to "返回", records_path, class: 'btn btn-secondary btn-sm' %>
+      </div>
+    </div>
+  </div>
+
+  <div data-controller="record" class="card-body border border-top-0">
+    <%= render "records/#{@record.type}/form", record: @record %>
+  </div>
+</div>
+
+<script>
+  window.FILE_CENTER_SERVICE_HOST = "<%= FILE_CENTER_SERVICE_HOST %>";
+  window.AUDIO_RECOGNITION_SERVICE_HOST = "<%= AUDIO_RECOGNITION_SERVICE_HOST %>";
+</script>

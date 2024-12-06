@@ -1,0 +1,13 @@
+<%= turbo_frame_tag record do %>
+  <div class="mb-3 mt-3">
+    <%= label_tag '概述', nil, class: 'form-label' %>
+    <%= tag.p record.label, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3 mt-3">
+    <%= label_tag '详细描述', nil, class: 'form-label' %>
+    <%= tag.p record.description, class: 'form-control', style: 'height: 100px;' %>
+  </div>
+
+  <%= render 'records/ai_answer', record: record %>
+<% end %>

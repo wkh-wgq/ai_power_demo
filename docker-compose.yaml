@@ -1,0 +1,50 @@
+name: "ai_power_demo"
+
+services:
+  rails-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - REDIS_HOST=ai_power_demo-redis
+
+    ports:
+      - '3000:3000'
+
+    environment:
+      - DB_HOST=postgres
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - REDIS_URL=redis://ai_power_demo-redis:6379/0
+
+    secrets:
+      - source: master_key
+        target: /rails/config/master.key
+
+    depends_on:
+      - redis
+      - postgres
+
+  redis:
+    image: redis:7.2
+    container_name: ai_power_demo-redis
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+
+  postgres:
+    image: postgres:16.1
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+volumes:
+  redis-data:
+  postgres-data:
+
+secrets:
+  master_key:
+    file: ./config/master.key

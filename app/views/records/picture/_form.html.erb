@@ -1,0 +1,35 @@
+<%= form_with(model: record, scope: :record, url: records_path) do |form| %>
+  <% if record.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(record.errors.count, "error") %> prohibited this record from being saved:</h2>
+
+      <ul>
+        <% record.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3 mt-3">
+    <%= form.label '概述', class: 'form-label' %>
+    <%= form.text_field :label, class: 'form-control' %>
+  </div>
+
+  <%# 类型，隐藏域 %>
+  <%= form.text_field :type, class: 'd-none' %>
+
+  <div class="mb-3 mt-3">
+    <%= form.label '上传图片', class: 'form-label' %>
+    <%= file_field_tag nil, id: 'picture_data', class: 'form-control', accept: 'image/*', 'data-record-target' => 'pictureData', 'data-action' => 'record#uploadPicture' %>
+  </div>
+
+  <input type="image" src="" class="form-control d-none" data-record-target='pictureDisplayUrl'>
+
+  <%# 文件访问的id，隐藏域，文件上传到文件服务器之后就会把值塞进来 %>
+  <%= form.text_field :file_id, class: 'd-none', 'data-record-target' => 'fileId' %>
+
+  <div class="d-grid gap-2">
+    <%= form.submit '创建', class: 'btn btn-primary' %>
+  </div>
+<% end %>

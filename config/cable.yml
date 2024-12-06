@@ -1,0 +1,12 @@
+development:
+  adapter: redis
+  url: "redis://host.docker.internal:6379"
+  channel_prefix: ai_power_demo_development
+
+test:
+  adapter: test
+
+production:
+  adapter: redis
+  url: <%= ENV.fetch("REDIS_URL") %>
+  channel_prefix: ai_power_demo_production

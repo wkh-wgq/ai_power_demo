@@ -1,0 +1,46 @@
+<% if notice.present? %>
+  <div class="alert alert-success alert-dismissible fade show">
+    <button type="button" class="btn-close", data-bs-dismiss="alert"></button>
+    <%= notice %>
+  </div>
+<% end %>
+<% content_for :title, "Records" %>
+
+<div class="card shadow-sm">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-9">
+        <h5>记录列表</h5>
+      </div>
+      <div class="col-3" style="text-align: end;">
+        <div class="dropdown">
+          <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+            新建记录
+          </button>
+          <ul class="dropdown-menu">
+            <li><%= link_to '文本', new_record_path(type: 'text'), class: 'dropdown-item' %></li>
+            <li><%= link_to '音频', new_record_path(type: 'audio'), class: 'dropdown-item' %></li>
+            <li><%= link_to '图片', new_record_path(type: 'picture'), class: 'dropdown-item' %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <% @records.each do |record| %>
+      <div class="card" style="margin-bottom: 10px;">
+        <div class="card-body border border-top-0">
+          <%= render 'records/record', record: record %>
+        </div>
+
+        <div class="card-footer">
+          <div style="text-align: end;">
+            <%= button_to "删除", record_path(record), class: 'btn btn-danger btn-sm', method: :delete, data: {turbo_confirm: '确定删除吗？'} %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <%= paginate @records %>
+  </div>
+</div>
