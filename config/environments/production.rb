@@ -46,7 +46,7 @@ Rails.application.configure do
   # config.action_cable.mount_path = nil
   # config.action_cable.url = "wss://example.com/cable"
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
-  config.action_cable.allowed_request_origins = [ "https://172.16.100.190" ]
+  config.action_cable.allowed_request_origins = [ "https://172.16.100.190", "https://172.16.100.22" ]
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   # Can be used together with config.force_ssl for Strict-Transport-Security and secure cookies.

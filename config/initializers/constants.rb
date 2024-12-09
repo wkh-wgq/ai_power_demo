@@ -7,4 +7,4 @@ AUDIO_RECOGNITION_SERVICE_HOST = ENV.fetch("AUDIO_RECOGNITION_SERVICE_HOST", "ht
 # maxkb服务地址
 MAXKB_API_HOST = ENV.fetch("MAXKB_API_HOST", "https://172.16.100.22/max_kb_api")
 # maxkb服务的apikey
-MAXKB_API_KEY = ENV.fetch("MAXKB_API_KEY", "application-48e40d978874a39502e7dee11827e2a7")
+MAXKB_API_KEY = ENV.fetch("MAXKB_API_KEY", "application-f56a4ecb42a525ce8b025ae5c8caa35b")
