@@ -28,6 +28,8 @@ services:
       - MAXKB_API_HOST=${MAXKB_API_HOST}
       # maxkb服务的apikey
       - MAXKB_API_KEY=${MAXKB_API_KEY}
+      # action_cable允许的请求来源
+      - ACTION_CABLE_ALLOWED_REQUEST_ORIGINS=${ACTION_CABLE_ALLOWED_REQUEST_ORIGINS}
 
     depends_on:
       - redis
