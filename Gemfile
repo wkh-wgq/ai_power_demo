@@ -60,3 +60,5 @@ gem "redis", "~> 5.3"
 
 # 分页
 gem "kaminari", "~> 1.2"
+
+gem "kamal", "~> 2.3"
