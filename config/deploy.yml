@@ -73,21 +73,15 @@ ssh:
 
 # Use accessory services (secrets come from .kamal/secrets).
 #
-accessories:
-  db:
-    image: postgres:16.1
-    host: 172.16.100.22
-    port: 5432
-    env:
-      clear: 
-        POSTGRES_USER: postgres 
-      secret:
-        - POSTGRES_PASSWORD
-    directories:
-      - postgres-data:/var/lib/postgresql/data
-  redis:
-    image: redis:7.2
-    host: 172.16.100.22
-    port: 6379
-    directories:
-      - redis-data:/data
+# accessories:
+#   db:
+#     image: postgres:16.1
+#     host: 172.16.100.22
+#     port: 5432
+#     env:
+#       clear: 
+#         POSTGRES_USER: postgres 
+#       secret:
+#         - POSTGRES_PASSWORD
+#     directories:
+#       - postgres-data:/var/lib/postgresql/data

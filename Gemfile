@@ -55,10 +55,12 @@ end
 # http调用
 gem "rest-client", "~> 2.1"
 
-# redis
-gem "redis", "~> 5.3"
-
 # 分页
 gem "kaminari", "~> 1.2"
 
 gem "kamal", "~> 2.3"
+
+# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
+gem "solid_cable", "~> 3.0"
+gem "solid_cache", "~> 1.0"
+gem "solid_queue", "~> 1.1"

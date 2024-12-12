@@ -5,8 +5,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - REDIS_HOST=ai_power_demo-redis
 
     ports:
       - '3000:3000'
@@ -15,7 +13,6 @@ services:
       - DB_HOST=postgres
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - REDIS_URL=redis://ai_power_demo-redis:6379/0
       # master key
       - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
       # 文件服务器地址
@@ -30,17 +27,11 @@ services:
       - MAXKB_API_KEY=${MAXKB_API_KEY}
       # action_cable允许的请求来源
       - ACTION_CABLE_ALLOWED_REQUEST_ORIGINS=${ACTION_CABLE_ALLOWED_REQUEST_ORIGINS}
+      # solid_queue是否作为puma的插件运行
+      - SOLID_QUEUE_IN_PUMA=${SOLID_QUEUE_IN_PUMA}
 
     depends_on:
-      - redis
       - postgres
-
-  redis:
-    image: redis:7.2
-    container_name: ai_power_demo-redis
-    restart: unless-stopped
-    volumes:
-      - redis-data:/data
 
   postgres:
     image: postgres:16.1
@@ -52,5 +43,4 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
 volumes:
-  redis-data:
   postgres-data:
