@@ -15,12 +15,11 @@
   },
 
   "containerEnv": {
-    "REDIS_URL": "redis://redis:6379/1",
     "DB_HOST": "postgres"
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [3000, 5432, 6379],
+  "forwardPorts": [3000, 5432],
 
   // Configure tool-specific properties.
   // "customizations": {},

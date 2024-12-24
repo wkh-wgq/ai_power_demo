@@ -43,7 +43,7 @@ class MaxkbService < ApplicationService
   def application_id
     @application_id ||= begin
       # application_id没必要每次都获取，缓存起来
-      CacheTool.load("maxkb.application_id") do
+      Rails.cache.fetch("maxkb.application_id", expires_in: 30.minutes) do
         url = "#{MAXKB_API_HOST}/api/application/profile"
         res = JSON.parse(RestClient::Request.execute(options.merge(method: :get, url: url)))
         raise res["message"] if res["code"] != 200
