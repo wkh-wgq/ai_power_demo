@@ -56,7 +56,7 @@ end
 gem "rest-client", "~> 2.1"
 
 # redis
-gem "redis", "~> 5.3"
+gem "redis", "~> 5.4"
 
 # 分页
 gem "kaminari", "~> 1.2"
